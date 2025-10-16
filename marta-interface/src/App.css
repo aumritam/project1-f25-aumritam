@@ -1,0 +1,425 @@
+/* Retro Color Palette */
+:root {
+  --color-marta-blue: #0070A0;
+  --color-marta-gold: #FFC72C;
+  --color-marta-red: #A90729;
+  --color-marta-green: #009756;
+  --color-retro-white: #F0EAD6; /* Off-white paper color */
+  --color-retro-dark: #2C3E50; /* Darker, sturdy background */
+  --color-retro-accent: #FF5733; /* Bold accent for buttons/highlights */
+  --color-gray-dark: #666;
+  --color-gray-light: #aaa;
+}
+
+/* Global Body and Font Reset for Retro Feel */
+body {
+  background-color: var(--color-retro-dark);
+  color: var(--color-retro-white);
+  /* A sturdy, clear font often used in transit, with standard fallbacks */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: none; /* Override default vite max-width */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* ------------------- GENERAL BUTTON STYLES (Retro Look) ------------------- */
+.retro-btn {
+  padding: 10px 15px;
+  border: 3px solid var(--color-retro-dark);
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.retro-btn:hover {
+  opacity: 0.9;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Line Selection Buttons */
+.btn-marta { color: white; }
+.btn-gold { background-color: var(--color-marta-gold); color: var(--color-retro-dark); border-color: var(--color-marta-gold); }
+.btn-red { background-color: var(--color-marta-red); border-color: var(--color-marta-red); }
+.btn-blue { background-color: var(--color-marta-blue); border-color: var(--color-marta-blue); }
+.btn-green { background-color: var(--color-marta-green); border-color: var(--color-marta-green); }
+
+.line-link.active .retro-btn {
+  /* Active line highlight */
+  outline: 4px solid var(--color-retro-accent);
+  outline-offset: 2px;
+}
+
+/* Filter Buttons */
+.filter-btn {
+  background-color: var(--color-gray-light);
+  color: var(--color-retro-dark);
+  border: 3px solid var(--color-gray-dark);
+  margin: 4px;
+}
+
+.filter-btn-active {
+  background-color: var(--color-retro-accent); /* Active/ON state color */
+  color: white;
+  border-color: var(--color-retro-accent);
+}
+
+/* ------------------- NAVBAR ------------------- */
+.navbar {
+  max-width: 900px; 
+  margin: 0 auto;
+  background-color: var(--color-retro-dark);
+  border-bottom: 5px solid var(--color-retro-accent);
+  padding: 15px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-title {
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: var(--color-retro-white);
+  transition: color 0.2s;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.navbar-title:hover {
+  color: var(--color-retro-accent);
+}
+
+.line-buttons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 15px;
+}
+
+.station-filter-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 8px 0;
+  margin: 0 -10px; /* Counteract padding */
+}
+
+.station-filter-inner {
+  display: inline-flex;
+  gap: 8px;
+  padding: 0 10px;
+}
+
+.station-btn {
+  min-width: fit-content;
+  background-color: var(--color-retro-white);
+  color: var(--color-retro-dark);
+  border: 2px solid var(--color-retro-dark);
+  padding: 5px 10px;
+  font-size: 0.75rem;
+}
+
+.station-btn-active {
+  background-color: var(--color-retro-accent);
+  color: white;
+  border-color: var(--color-retro-accent);
+}
+
+/* ------------------- TRAIN LIST ------------------- */
+.train-list-container {
+  padding: 20px;
+  min-height: calc(100vh - 200px); /* Ensure minimum height */
+}
+
+.filter-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  background-color: rgba(44, 62, 80, 0.85); /* retroDark with opacity */
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.train-cards-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Conditional Backgrounds for TrainList */
+.bg-blue-line { background-color: rgba(0, 112, 160, 0.1); }
+.bg-gold-line { background-color: rgba(255, 199, 44, 0.1); }
+.bg-red-line { background-color: rgba(169, 7, 41, 0.1); }
+.bg-green-line { background-color: rgba(0, 151, 86, 0.1); }
+
+
+/* ------------------- TRAIN CARD ------------------- */
+.train-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-retro-white);
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid var(--color-retro-dark);
+  color: var(--color-retro-dark);
+}
+
+@media (min-width: 600px) {
+  .train-card {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.status-tag {
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+  min-width: 100px;
+}
+
+@media (min-width: 600px) {
+  .status-tag {
+    margin-bottom: 0;
+    margin-right: 20px;
+    text-align: center;
+  }
+}
+
+.status-on-time { background-color: var(--color-marta-green); }
+.status-delayed { background-color: var(--color-marta-red); }
+
+.main-info {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.destination-info {
+  text-align: left;
+  min-width: 150px;
+}
+
+.destination-info p:first-child {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.destination-info p:last-child {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.time-direction {
+  text-align: right;
+}
+
+.time-direction p:first-child {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.time-direction p:last-child {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ------------------- HOME PAGE ------------------- */
+.home-page {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.home-header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+}
+
+.home-header a {
+  text-decoration: none;
+  color: var(--color-retro-white);
+  font-weight: bold;
+  padding: 8px 15px;
+  border: 2px solid var(--color-retro-white);
+  border-radius: 4px;
+}
+
+.home-header a:hover {
+  color: var(--color-retro-accent);
+  border-color: var(--color-retro-accent);
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hero-section h1 {
+  font-size: 4rem;
+  color: var(--color-retro-accent);
+  margin-bottom: 10px;
+}
+
+.hero-section h2 {
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-retro-white);
+}
+
+.line-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.line-selection-grid a {
+  text-decoration: none;
+}
+
+.line-selection-grid .retro-btn {
+  font-size: 1.5rem;
+  padding: 20px;
+  display: block;
+}
+
+/* ------------------- ABOUT PAGE ------------------- */
+.about-page {
+  padding: 40px 20px;
+  background-color: var(--color-retro-white);
+  color: var(--color-retro-dark);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  min-height: 100vh;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.about-header h1 {
+  font-size: 2.5rem;
+  color: var(--color-marta-blue);
+  margin-bottom: 15px;
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+  }
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  border-bottom: 3px solid var(--color-marta-red);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.map-placeholder {
+  border: 4px solid var(--color-retro-dark);
+  background-color: #eee;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.about-info p {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+/* ------------------- LOADER (Pure CSS) ------------------- */
+.loader {
+  border: 8px solid rgba(255, 255, 255, 0.3);
+  border-top: 8px solid var(--color-retro-white);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ------------------- NO TRAINS MESSAGE ------------------- */
+.no-trains-message {
+  padding: 40px;
+  background-color: rgba(240, 234, 214, 0.95); /* retro-white with opacity */
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+  border: 4px solid var(--color-marta-red);
+  max-width: 500px;
+  margin: 50px auto;
+  color: var(--color-retro-dark);
+}
+
+.no-trains-message p:first-child {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-marta-red);
+}
