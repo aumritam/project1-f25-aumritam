@@ -1,5 +1,8 @@
 # Project 1 - Marta Interface
 
+I decided to make a "mobile" version to make a more accessible style. 
+Video Link: https://drive.google.com/file/d/13Ax1BF08-A_0Cx5Vg_QyjppVdWsUqeeH/view?usp=sharing
+
 ## Desciption
 
 In this project, you'll be creating a frontend that graphically displays train information with filtering options. Using your React knowledge, you will implement hooks, props, and state management in this Marta Interface!
